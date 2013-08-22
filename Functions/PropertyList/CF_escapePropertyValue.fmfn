@@ -1,0 +1,57 @@
+/**
+ * =====================================
+ * CF_escapePropertyValue ( propertyValue )
+ *
+ * RETURNS:
+ * 		A fully escaped Property Value as a string.
+ *
+ * PARAMETERS:
+ * 		propertyValue: An unescaped Property Value
+ *
+ * DEPENDENCIES: none
+ *
+ * NOTES:
+ * 		By using this function you could temporarily store three different
+ * 		Property Lists in a single Property Value.
+ *
+ * 		The recriprical function is called CF_unescapePropertyValue.
+ * 
+ * 		Line breaks are convered into the special paragraph marker character.
+ * 		Any existing paragraph markers will be escaped by added a leading
+ * 		backslash. Calling the function over and over will allow you to nest
+ * 		property lists inside of property lists inside of property lists.
+ *
+ * HISTORY:
+ *		UPDATED on 2013-08-13 by Perren Smith <perrens@drbott.net> to include
+ *		MIT software license.
+ * 		MODIFIED on 2012-01-09 by Chris Irvine <chrisi@drbott.net> to handle
+ * 		4th to n-level depth.
+ * 		MODIFIED on 2012-01-09 by Chris Irvine <chrisi@drbott.net> to eliminate
+ * 		recursion.
+ * 		CREATED on 2008-05-07 by Chris Irvine <chrisi@drbott.net>.
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2013 Dr. Bott LLC and Chris Irvine
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * =====================================
+ */
+
+Substitute ( Substitute ( propertyValue ; "\¶" ; "\\\¶" ) ; "¶" ; "\¶" )

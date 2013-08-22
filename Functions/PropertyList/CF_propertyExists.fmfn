@@ -1,0 +1,65 @@
+/**
+ * =====================================
+ * CF_propertyExists ( propertyList; propertyName )
+ *
+ * RETURNS:
+ * 		True if a Property Name exists in the Property List, False otherwise.
+ *
+ * PARAMETERS:
+ * 		propertyList: A string of name-value pairs
+ * 		propertyName: The name of the property to omit
+ *
+ * DEPENDENCIES: None
+ *
+ * NOTES:
+ * 		Function is recursive.
+ *
+ * 		We found speed increases when we eliminated recursion from
+ * 		CF_getPropertyValue. We should do the same here some day.
+ *
+ * HISTORY:
+ *		UPDATED on 2013-08-13 by Perren Smith <perrens@drbott.net> to include
+ *		MIT software license.
+ * 		MODIFIED on 2007-07-25 by Chris Irvine <perrens@drbott.net> to fix
+ * 		a recursion bug.
+ * 		CREATED on 2007-07-09 by Chris Irvine <chrisi@drbott.net>.
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2013 Dr. Bott LLC and Chris Irvine
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * =====================================
+ */
+
+If (
+	IsEmpty ( propertyList ) ;
+		False ;  // the property does not exist
+     Let (
+		[
+			~thisProperty = LeftValues ( propertyList ; 1 ) ;
+			~equalsPosition = Position ( ~thisProperty ; "=" ; 1 ; 1 ) ;
+			~thisPropertyName = Left ( ~thisProperty ; ~equalsPosition - 1 )
+		];
+		If ( ~thisPropertyName = propertyName ;
+			True ;  // the property does exist
+		CF_propertyExists ( RightValues ( propertyList ; ValueCount ( propertyList ) -1 ) ; propertyName )
+		)
+	)
+)

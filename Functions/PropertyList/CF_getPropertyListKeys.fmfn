@@ -1,0 +1,59 @@
+/**
+ * =====================================
+ * CF_getPropertyListKeys ( propertyList )
+ *
+ * RETURNS:
+ * 		A list of Property Names in a Property List.
+ *
+ * PARAMETERS:
+ * 		propertyList: A string of name-value pairs
+ *
+ * DEPENDENCIES: None
+ *
+ * NOTES:
+ * 		Function is recursive.
+ *
+ * HISTORY:
+ *		UPDATED on 2013-08-13 by Perren Smith <perrens@drbott.net> to include
+ *		MIT software license.
+ * 		MODIFIED on 2013-08-13 by Perren Smith <perrens@drbott.net> to use
+ * 		only one Let () statement.
+ * 		CREATED on 2007-10-10 by James Sturm.
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2013 Dr. Bott LLC
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ * =====================================
+ */
+
+Let (
+	[
+		~thisProperty = LeftValues ( propertyList; 1 ) ;
+		~equalPosition = Position ( ~thisProperty; "=" ; 1 ; 1 ) ;
+		~thisPropertyName = Left ( ~thisProperty ; ~equalPosition - 1 );
+		~propertyCount = ValueCount ( propertyList )
+	] ;
+	~thisPropertyName &
+	If (
+		~propertyCount > 1 ;
+			¶ & CF_getPropertyListKeys ( RightValues ( propertyList ; ~propertyCount - 1 ) )
+	)
+)
