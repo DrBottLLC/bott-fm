@@ -13,9 +13,11 @@
  *
  * NOTES:
  * 		If the Property Name is contained in the Property List multiple
- * 		times this function will return the first one.
+ * 		times this function will return the last occurrence.
  *
  * HISTORY:
+ * 		MODIFIED on 2013-8-26 by Perren Smith <perrens@drbott.net> to
+ * 		return last occurrence of named value instead of first one.
  *		UPDATED on 2013-08-13 by Perren Smith <perrens@drbott.net> to include
  *		MIT software license.
  * 		MODIFIED on 2013-8-13 by Perren Smith <perrens@drbott.net> to
@@ -53,7 +55,7 @@
 Let (
 	[
 		~plist = ¶ & propertyList & ¶ ;
-		~p = Position ( ~plist ; ¶ & propertyName & "=" ;  1 ; 1 ) ;
+		~p = Position ( ~plist ; ¶ & propertyName & "=" ;  Length ( ~plist ) ; -1 ) ;
 		~propertyValueStart = ~p + Length ( propertyName ) + 2 ;
 		~next = Position ( ~plist ; ¶ ; ~propertyValueStart ; 1 )
 	] ;
